@@ -5,6 +5,7 @@ import net.kacemi.j2eemvc.repository.ProductRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -41,5 +42,11 @@ public class ProductController {
         model.addAttribute("product", new Product());
 
         return "add-product";
+    }
+
+    @PostMapping("/saveProduct")
+    public String saveProduct(Product product) {
+        productRepository.save(product);
+        return "redirect:/add-product";
     }
 }
