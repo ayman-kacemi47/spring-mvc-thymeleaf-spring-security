@@ -21,9 +21,9 @@ public class Product {
     @Id @GeneratedValue
     private Long id;
     @NotEmpty
-    @Size(min = 3, max = 50)
+    @Size(min = 2, max = 50)
     private String name;
-    @Min(0)
+    @Min(1)
     private int quantity;
     @Min(0)
     private double price;
