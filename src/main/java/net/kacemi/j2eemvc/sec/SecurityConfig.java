@@ -40,8 +40,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.
                 formLogin(Customizer.withDefaults())
-                .authorizeHttpRequests(ar->ar.requestMatchers("/index/**","/filtredProducts","/products/**").hasRole("USER"))
-                .authorizeHttpRequests(ar->ar.requestMatchers("/deleteProduct","/editProduct", "/saveProduct","/add-product","/updateProduct").hasRole("ADMIN"))
+                .authorizeHttpRequests(ar->ar.requestMatchers("/user/**").hasRole("USER"))
+                .authorizeHttpRequests(ar->ar.requestMatchers("/admin/**").hasRole("ADMIN"))
+                .authorizeHttpRequests(ar->ar.requestMatchers("/public/**").permitAll())
                 .authorizeHttpRequests(ar->ar.anyRequest().authenticated())
                 .build();
     }

@@ -22,7 +22,7 @@ public class ProductController {
         this.productRepository = productRepository;
     }
 
-    @GetMapping("/index")
+    @GetMapping("/user/index")
     public String index(Model model) {
         model.addAttribute("listProducts", productRepository.findAll());
 
@@ -30,33 +30,33 @@ public class ProductController {
     }
     @GetMapping("/")
     public String home() {
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
 
-    @GetMapping("/deleteProduct")
+    @GetMapping("/admin/deleteProduct")
     public String deleteProduct(@RequestParam(name = "id") Long id) {
         productRepository.deleteById(id);
 
-        return "redirect:/index";
+        return "redirect:/user/index";
     }
 
-    @GetMapping("/add-product")
+    @GetMapping("/admin/add-product")
     public String addProduct(Model model) {
         model.addAttribute("product", new Product());
 
         return "add-product";
     }
 
-    @PostMapping("/saveProduct")
+    @PostMapping("/admin/saveProduct")
     public String saveProduct(@Valid  Product product, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "add-product";
         }
         productRepository.save(product);
-        return "redirect:/add-product";
+        return "redirect:/admin/add-product";
     }
 
-    @GetMapping("/editProduct")
+    @GetMapping("/admin/editProduct")
     public String editProduct(@RequestParam(name = "id") Long id, Model model) {
         model.addAttribute("product", productRepository.findById(id).orElse(null));
         return "edit-product";
@@ -69,10 +69,10 @@ public class ProductController {
         }
 
         productRepository.save(product);
-        return "redirect:/index";
+        return "redirect:/";
     }
 
-    @GetMapping("/filtredProducts")
+    @GetMapping("/user/filtredProducts")
     public String listProducts(@RequestParam(name = "keyword", required = false) String keyword, Model model) {
         List<Product> products;
         if (keyword != null && !keyword.isEmpty()) {
